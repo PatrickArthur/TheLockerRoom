@@ -1,0 +1,40 @@
+<%= simple_form_for(@profile, html: {class: 'form-horizontal', multipart: true } ) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this edit from being saved:</h2>
+      <ul>
+        <% @profile.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <h2> Basic Information </h2></br>
+  <%= f.input :first_name, label: "First Name:" %>
+  <%= f.input :last_name, label: "Last Name:" %>
+  <h4> Select Sport Played </h4></br>
+  <%= f.input :sport, label: "Sport:" %>
+  <h4> Contact Information </h4></br>
+  <%= f.input :address, label: "Address:" %>
+  <%= f.input :city, label: "City:" %>
+  <%= f.input :state, label: "State:" %>
+  <%= f.input :zip, label: "Zip Code:" %>
+  <%= f.input :phone, label: "Phone Number:" %>
+  <%= f.input :email, label: "Email Adress:" %>
+  <h4> Demographic Information </h4>
+  <%= f.input :gender, label: "Gender:" %>
+  <%= f.input :age, label: "Age:" %>
+  <h4> Body Measurements </h4>
+  <%= f.input :weight, label: "Weight:" %>
+  <%= f.input :height, label: "Height:" %>
+  <%= f.input :waist, label: "Waist:" %>
+  <%= f.input :neck, label: "Neck:" %>
+  <%= f.input :hip, label: "Hip (Only Female):" %>
+
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
