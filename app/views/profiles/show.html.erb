@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<%=@profile.first_name %>
+<h4> Athlete Contact Information</h4>
+<%= image_tag @profile.avatar.url(:medium) %>
+<p>First Name: <%=@profile.first_name %></p>
+<p>Last Name: <%=@profile.last_name %></p>
+<p>Sport: <%=@profile.sport%></p>
+<p>Bio: <%=@profile.description%></p>
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
