@@ -1,11 +1,32 @@
-<p id="notice"><%= notice %></p>
 
-<h4> Athlete Contact Information</h4>
-<%= image_tag @profile.avatar.url(:medium) %>
-<p>First Name: <%=@profile.first_name %></p>
-<p>Last Name: <%=@profile.last_name %></p>
-<p>Sport: <%=@profile.sport%></p>
-<p>Bio: <%=@profile.description%></p>
+<div class="container">
+  <h4> Athlete Contact Information</h4>
+  <p><%= image_tag @profile.avatar.url(:medium) %><p></br>
+  <p>First Name: <%=@profile.first_name %></p>
+  <p>Last Name: <%=@profile.last_name %></p>
+  <h4> Location </h4></br>
+  <p>City: <%=@profile.city %></p>
+  <p>State: <%=@profile.state %></p>
+  <p>Country: <%=@profile.country %></p>
+  <h4> Basic Info </h4></br>
+  <p>Gender: <%=@profile.gender %></p>
+  <p>Sport: <%=@profile.sport%></p>
+  <p>Bio: <%=@profile.description%></p></br>
+  <h4> Athletic Performance Metrics </h4></br>
+  <p><b>Height: <%=@profile.height%> in</b></p>
+  <p><b>Weight: <%=@profile.weight%> lbs</b></p>
+  <div class="row">
+    <div class="col-sm-2">
+  <p><b>BMI: <%=@profile.bmi%></b></p>
+  </div>
+  <div class="col-sm-2">
+  <p><b>Body Fat: <%=@profile.bodyfat.to_i%>%</b></p>
+  </div>
+  </div>
+  <p><b>Wilks: <%=@profile.wilks%></b></p>
+</div>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+
+
+
+

@@ -1,15 +1,24 @@
 class ProfilesController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+   before_filter :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
-  end
+    # if params[:sport]
+    #   @profiles = Profile.where(sport: params[:sport])
+    # else
+      @profiles = Profile.all
+    end
+  # end
+
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @profile = Profile.find(params[:id]) || current_user.profile
   end
 
   # GET /profiles/new
@@ -19,19 +28,20 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @profile = Profile.find(params[:id])
   end
 
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
+    @profile = current_user.create_profile(profile_params)
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
-        format.json { render :show, status: :created, location: @profile }
+        format.html { redirect_to profiles_path, notice: 'Profile was successfully created.' }
+        format.json { render action: 'index', status: :created, location: @profile }
       else
-        format.html { render :new }
+        format.html { render action: 'new' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
@@ -71,7 +81,7 @@ class ProfilesController < ApplicationController
     def profile_params
       params.require(:profile).permit(:first_name,:last_name,:sport,:address,
         :city,:state,:country,:zip,:phone,:email,:gender,:age,:weight,:height,:waist,
-        :neck,:hip,:description,:avatar)
+        :neck,:hip,:bench,:squat,:deadlift,:powerclean,:cleanpress,:description,:avatar)
     end
 end
 

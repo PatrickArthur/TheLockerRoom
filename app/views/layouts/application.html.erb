@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Athprof</title>
+  <title>The LockerRoom</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </head>
-    <div class="container">
 <body>
 
-<%= yield %>
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+    <% if user_signed_in? %>
+        Signed in as <%= current_user.email %>
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+    <% else %>
+        <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
+    <% end %>
 
-</body>
-</div>
+    <a href="#" class="brand" > The LockerRoom </a>
+          <ul class="nav">
+            <% if current_user && current_user.profile%>
 
+            <li><%= link_to 'Athletes', profiles_path %></li>
+            <li><%= link_to "my profile",  current_user.profile %>  </li>
+
+            <li><%= link_to "edit profile", edit_profile_path(current_user.profile) %> </li>
+      </ul>
+    <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+      <%= yield %>
+      </div>
+    </div>
+  </body>
 </html>

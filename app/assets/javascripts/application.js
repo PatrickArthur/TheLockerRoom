@@ -15,3 +15,18 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+    $( "#accordion" ).accordion({
+    active: false,
+    collapsible: true,
+    heightStyle: "content"
+});
+
+    $(function() {
+
+  $('.toggle-posts').on('click', function() {
+    $('.posts').toggleClass('posts-hidden');
+  });
+
+});

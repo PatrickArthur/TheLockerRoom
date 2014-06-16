@@ -11,33 +11,53 @@
     </div>
   <% end %>
 
+<div id="accordion">
   <h2> Basic Information </h2></br>
+  <div>
   <%= f.input :first_name, label: "First Name:" %>
   <%= f.input :last_name, label: "Last Name:" %>
   <h4> Select Sport Played </h4></br>
-  <%= f.input :sport, label: "Sport:" %>
-  <h4> Contact Information </h4></br>
+  <%= f.input :sport, collection: [ "Football", "Baseball", "Basketball", "Rugby Union", "Rugby Leagure", "MMA", "Boxing", "Wrestling", "Soccer", "Track&Field","Lacrosse", "Field Hockey", "Ice Hockey", "Golf", "Australian Rules Football"],:prompt => "Select a Sport",label: "Sport:" %>
+</div>
+<h4> Contact Information </h4></br>
+<div>
   <%= f.input :address, label: "Address:" %>
   <%= f.input :city, label: "City:" %>
   <%= f.input :state, label: "State:" %></br>
-  <%= f.country_select :country, :Country => ''%>
+  <%= f.country_select :country, :prompt => "Select a Country", :Country => ''%>
   <%= f.input :zip, label: "Zip Code:" %>
   <%= f.input :phone, label: "Phone Number:" %>
   <%= f.input :email, label: "Email Adress:" %>
+</div>
   <h4> Demographic Information </h4></br>
-  <%= f.input :gender, label: "Gender:" %>
+<div>
+  <%= f.input :gender, collection: [ "Male", "Female"],:prompt => "Select Gender",label: "Gender:" %>
   <%= f.input :age, label: "Age:" %>
+</div>
   <h4> Body Measurements </h4></br>
-  <%= f.input :weight, label: "Weight:" %>
-  <%= f.input :height, label: "Height:" %>
+<div>
+  <%= f.input :weight, label: "Weight (lbs):" %>
+  <%= f.input :height, label: "Height (inches):" %>
   <%= f.input :waist, label: "Waist:" %>
   <%= f.input :neck, label: "Neck:" %>
   <%= f.input :hip, label: "Hip (Only Female):" %>
+</div>
+   <h4> Strength Measurements (Enter 1 Rep Max) </h4></br>
+<div>
+  <%= f.input :bench, label: "Bench:" %>
+  <%= f.input :squat, label: "Squat:" %>
+  <%= f.input :deadlift, label: "Deadlift:" %>
+  <%= f.input :powerclean, label: "Power Clean:" %>
+  <%= f.input :cleanpress, label: "Clean and Press:" %>
+</div>
   <h4> Athlete Biography </h4>
+<div>
   <%= f.input :description, label: false, :as => :text, :input_html => { :cols => 75, :rows => 5, :style => 'width: 100%'} %>
   <h4>Upload Photo:</h4>
   <p class="instructions">(Max size 100x100)</p>
   <%= f.file_field :avatar %>
+</div>
+</div>
 
 
   <div class="actions">

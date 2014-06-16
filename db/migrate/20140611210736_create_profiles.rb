@@ -1,6 +1,7 @@
 class CreateProfiles < ActiveRecord::Migration
   def change
     create_table :profiles do |t|
+      t.string :user_id
       t.string :first_name
       t.string :last_name
       t.string :sport
@@ -18,6 +19,11 @@ class CreateProfiles < ActiveRecord::Migration
       t.integer :waist
       t.integer :neck
       t.integer :hip
+      t.integer :bench
+      t.integer :squat
+      t.integer :deadlift
+      t.integer :powerclean
+      t.integer :cleanpress
       t.string :description
       t.timestamps
     end
