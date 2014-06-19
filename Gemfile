@@ -29,6 +29,8 @@ gem 'carmen-rails', '~> 1.0.0'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'devise'
 gem 'pry-rails'
+gem "chartkick"
+gem "active_median"
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 

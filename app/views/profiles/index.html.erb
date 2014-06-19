@@ -1,31 +1,37 @@
 <h2>Top Athletes</h2>
-<div class="row">
-<table>
-  <thead>
-    <tr>
-      <th colspan="1"></th>
-      <th>Name</th>
-      <th>Sport</th>
-    </tr>
-  </thead>
 
-  <tbody>
-      <% @profiles.each do |profile| %>
-      <tr>
-        <td><%=link_to(profile) do %><%= image_tag profile.avatar.url(:thumb ) %></td>
-        <% end %>
-        <td><%=link_to(profile) do %><%= profile.first_name %></td>
-        <% end %>
-        <td><%=link_to(profile) do %><%= profile.sport %></td>
-        <% end %>
-      <% end %>
+<%= simple_form_for(:search, html: { url: profiles_path, method: 'get' }) do |f| %>
+  <h4> Select Sport Played </h4></br>
 
-    </tr>
-  </tbody>
+  <%= f.input :sport,
+    collection: @sports,
+    prompt: "Select a Sport",
+    label: "Sport:",
+    selected: (params[:search][:sport] if params[:search]) %>
+
+   <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+ <div class="row">
+  <% @profiles.each_slice(3) do |slice| %>
+  <% slice.each do |profile| %>
+
+  <div class="span2">
+    <p><%=link_to(profile) do %><%= image_tag profile.avatar.url(:small ) %></p>
+    <% end %>
+    <p><%= profile.username %> </p>
+    <p><%= profile.sport %> | <%= profile.position %></p>
+    </div>
+    <% end %>
 </div>
-</table>
+<% end %>
 
-<br>
+
+
 
 
 

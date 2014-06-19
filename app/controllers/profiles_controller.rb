@@ -1,18 +1,20 @@
 class ProfilesController < ApplicationController
   skip_before_filter :verify_authenticity_token
-   before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
 
   # GET /profiles
   # GET /profiles.json
   def index
-    # if params[:sport]
-    #   @profiles = Profile.where(sport: params[:sport])
-    # else
+    @sports = [ "Football", "Baseball", "Basketball", "Rugby Union", "Rugby Leagure", "MMA", "Boxing", "Wrestling", "Soccer", "Track&Field","Lacrosse", "Field Hockey", "Ice Hockey", "Golf", "Australian Rules Football"]
+
+    if params[:search] && params[:search][:sport]
+      @profiles = Profile.where(sport: params[:search][:sport])
+    else
       @profiles = Profile.all
     end
-  # end
+  end
 
 
   # GET /profiles/1
@@ -35,6 +37,17 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = current_user.create_profile(profile_params)
+    @post = @profile.posts.create(post_params)
+    @profile.bmi = ((@profile.weight*703)/(@profile.height**2))
+
+    # if @profile.gender == "Male"
+    #   @profile.bodyfat=((86.01*Math.log10((@profile.waist) - (@profile.neck))) - (70.041*Math.log10(@profile.height)) + 36.76).to_i
+
+    # else
+    #   if @profile.gender == "Female"
+    #     @profile.bodyfat=(163.205*math.log10((@profile.waist) - (@profile.hip) + (@profile.neck)) - 97.684*math.log10(@profile.height) - 78.387).to_i
+    #   end
+    # end
 
     respond_to do |format|
       if @profile.save
@@ -79,9 +92,13 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:first_name,:last_name,:sport,:address,
+      params.require(:profile).permit(:first_name,:last_name,:sport,:team,:position,:address,
         :city,:state,:country,:zip,:phone,:email,:gender,:age,:weight,:height,:waist,
         :neck,:hip,:bench,:squat,:deadlift,:powerclean,:cleanpress,:description,:avatar)
+    end
+
+    def post_params
+      params.require(:post).permit(:status)
     end
 end
 

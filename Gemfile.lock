@@ -24,6 +24,7 @@ GEM
       activesupport (= 4.1.1)
       builder (~> 3.1)
       erubis (~> 2.7.0)
+    active_median (0.1.0)
     activemodel (4.1.1)
       activesupport (= 4.1.1)
       builder (~> 3.1)
@@ -45,6 +46,7 @@ GEM
     carmen-rails (1.0.1)
       carmen (~> 1.0.0)
       rails
+    chartkick (1.2.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -173,7 +175,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_median
   carmen-rails (~> 1.0.0)
+  chartkick
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 2.0)

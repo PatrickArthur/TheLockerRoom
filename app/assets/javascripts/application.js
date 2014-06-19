@@ -12,21 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
 
+
+
+
+
 $(function() {
-    $( "#accordion" ).accordion({
+  $( "#accordion" ).accordion({
     active: false,
     collapsible: true,
     heightStyle: "content"
-});
-
-    $(function() {
-
-  $('.toggle-posts').on('click', function() {
-    $('.posts').toggleClass('posts-hidden');
   });
-
 });

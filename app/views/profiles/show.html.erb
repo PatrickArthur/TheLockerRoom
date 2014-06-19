@@ -1,30 +1,79 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
 <div class="container">
-  <h4> Athlete Contact Information</h4>
-  <p><%= image_tag @profile.avatar.url(:medium) %><p></br>
-  <p>First Name: <%=@profile.first_name %></p>
-  <p>Last Name: <%=@profile.last_name %></p>
-  <h4> Location </h4></br>
-  <p>City: <%=@profile.city %></p>
-  <p>State: <%=@profile.state %></p>
-  <p>Country: <%=@profile.country %></p>
-  <h4> Basic Info </h4></br>
-  <p>Gender: <%=@profile.gender %></p>
-  <p>Sport: <%=@profile.sport%></p>
-  <p>Bio: <%=@profile.description%></p></br>
+
+ <div class="row">
+  <div class="col-sm-4">
+  <p><%= image_tag @profile.avatar.url(:medium) %><p>
+    <%= form_for([@profile, @profile.posts.build]) do |f| %>
+  <p>
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<% @profile.posts.each do |post| %>
+  <p>
+
+    <b><%= post.status %></b>
+  </p>
+<hr>
+<% end %></br>
+  </div>
+  <div class="col-sm-8">
+  <h3> <%=@profile.username %> | <%=@profile.team %></h3>
+  <p> <%=@profile.location %> | <%=@profile.country %></p>
+  <p><%=@profile.gender %> | <%=@profile.sport %> | <%=@profile.position %></p></br>
+  <h4> Player Description </h4>
+  <p><%=@profile.description%></p></br>
+
   <h4> Athletic Performance Metrics </h4></br>
-  <p><b>Height: <%=@profile.height%> in</b></p>
-  <p><b>Weight: <%=@profile.weight%> lbs</b></p>
-  <div class="row">
-    <div class="col-sm-2">
-  <p><b>BMI: <%=@profile.bmi%></b></p>
-  </div>
-  <div class="col-sm-2">
-  <p><b>Body Fat: <%=@profile.bodyfat.to_i%>%</b></p>
-  </div>
-  </div>
-  <p><b>Wilks: <%=@profile.wilks%></b></p>
+   <div class="row">
+  <div class="col-sm-3">
+  <p><b>Player</b></p>
 </div>
+  <div class="col-sm-5">
+  <p><b>Average <%=@profile.position %></b></p>
+</div>
+</div>
+  <div class="row">
+  <div class="col-sm-3">
+  <p>Weight: <%=@profile.weight%> lbs</p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgweight%> lbs</p>
+</div>
+</div>
+ <div class="row">
+  <div class="col-sm-3">
+  <p>Height: <%=@profile.height%> lbs</p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgheight%> lbs</p>
+</div>
+</div>
+ <div class="row">
+  <div class="col-sm-3">
+  <p>BMI: <%=@profile.bmi%></p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgbmi%></p>
+</div>
+</div>
+
+<p>BodyFat: <%=@profile.bodyfat%>%</p></br>
+
+
+</div>
+</div>
+
+
+
+
+
 
 
 
