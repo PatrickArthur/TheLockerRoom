@@ -18,3 +18,45 @@
  .posts-hidden {
   display: none;
 }
+
+.land {
+
+  border-style: solid;
+    border-width: 1px;
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+    border-radius: 5px;
+
+
+
+}
+
+.brand {
+    background-color: #000000;
+    color: white;
+}
+
+.navbar {
+    background-color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    color: white;
+}
+
+#accordion {
+    border-style: inset;
+    border-width: 5px;
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+}
+
+.out-form {
+    border-style: inset;
+    background-color: #000000;
+    color: white;
+    border-width: 5px;
+}
+
+
+
+
+

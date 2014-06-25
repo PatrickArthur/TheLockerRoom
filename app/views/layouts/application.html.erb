@@ -29,6 +29,7 @@
             <li><%= link_to "edit profile", edit_profile_path(current_user.profile) %> </li>
       </ul>
     <% end %>
+
           </ul>
         </div>
       </div>
@@ -37,7 +38,9 @@
     <div class="container">
        <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
+      <div class="back-app">
       <%= yield %>
+    </div>
       </div>
     </div>
   </body>

@@ -9,11 +9,19 @@ class ProfilesController < ApplicationController
   def index
     @sports = [ "Football", "Baseball", "Basketball", "Rugby Union", "Rugby Leagure", "MMA", "Boxing", "Wrestling", "Soccer", "Track&Field","Lacrosse", "Field Hockey", "Ice Hockey", "Golf", "Australian Rules Football"]
 
-    if params[:search] && params[:search][:sport]
-      @profiles = Profile.where(sport: params[:search][:sport])
-    else
-      @profiles = Profile.all
+    @profiles = Profile.all
+
+    if params[:search]
+      if params[:search][:sport].present?
+        @profiles = @profiles.where(sport: params[:search][:sport])
+      end
+
+      if params[:search][:first_name].present? && params[:search][:last_name].present?
+        @profiles = @profiles.where(username: params[:search][:first_name] && params[:search][:first_name])
+      end
     end
+
+
   end
 
 

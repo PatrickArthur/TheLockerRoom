@@ -2,33 +2,41 @@
 
 <%= simple_form_for(:search, html: { url: profiles_path, method: 'get' }) do |f| %>
   <h4> Select Sport Played </h4></br>
-
-  <%= f.input :sport,
+  <div class="row">
+  <div class="span2">
+  <p><%= f.input :sport,
     collection: @sports,
     prompt: "Select a Sport",
     label: "Sport:",
-    selected: (params[:search][:sport] if params[:search]) %>
+    selected: (params[:search][:sport] if params[:search]) %></p>
+    <p><%= f.input :first_name,
+    selected: (params[:search][:username] if params[:search]) %></p>
+  <p><%= f.submit %></p>
+</div>
+</div>
+  <hr>
 
-   <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
 
 
 
- <div class="row">
-  <% @profiles.each_slice(3) do |slice| %>
+  <% @profiles.sample(6).each_slice(3) do |slice| %>
+  <div class="row">
   <% slice.each do |profile| %>
-
   <div class="span2">
+    <div class="land">
     <p><%=link_to(profile) do %><%= image_tag profile.avatar.url(:small ) %></p>
     <% end %>
     <p><%= profile.username %> </p>
     <p><%= profile.sport %> | <%= profile.position %></p>
-    </div>
+  </div>
+  </br>
+  </div>
+
     <% end %>
-</div>
+    </div>
 <% end %>
+
 
 
 
