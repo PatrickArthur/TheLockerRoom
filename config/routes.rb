@@ -1,10 +1,45 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  # get 'activities/index'
+
+  resources :activities
+
+  devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
+                   controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
   resources :profiles do
-    resources :posts
+    resources :posts, only: [:new, :create]
   end
+
+  resources :posts do
+    resources :comments, only: [:new, :create]
+  end
+
+  resources :profiles do
+  resources :comments
+end
+
+resources :friendships
+
+
+
+
+
+  resources :posts do
+  member do
+    put "like", to: "posts#upvote"
+    put "dislike", to: "posts#downvote"
+  end
+end
+
+resources :comments do
+  member do
+    put "like", to: "comments#upvote"
+    put "dislike", to: "comments#downvote"
+  end
+end
+
+
 
   root 'profiles#index'
 
@@ -83,3 +118,4 @@ end
   #     resources :products
   #   end
 end
+

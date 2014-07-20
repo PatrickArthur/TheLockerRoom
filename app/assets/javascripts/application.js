@@ -14,14 +14,27 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require twitter/bootstrap
-//= require turbolinks
 //= require_tree .
+//= require social-share-button
+//= require cocoon
 
 // $(function () {
 //   $("document").on("submit", ".new_user", function() {
 //       $('.signup').modal("close");
 //   });
 // });
+
+
+$(function() {
+
+  $('.toggle-comments').on('click', function() {
+    $('.comments').toggleClass('comments-hidden');
+  });
+
+});
+
+
+
 
 
 
@@ -31,6 +44,8 @@ $(function() {
     collapsible: true,
     heightStyle: "content"
 });
+
+
 
   $('#accordion button').click(function(e) {
       var element  = $(this);
@@ -52,3 +67,5 @@ $(function() {
       };
     });
   });
+
+$('.advanced-reset-btn').click(function() { $('#your-form')[0].reset() })

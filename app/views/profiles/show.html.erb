@@ -1,74 +1,217 @@
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-
-<div class="container">
-
- <div class="row">
+<div class="row">
   <div class="col-sm-4">
-  <p><%= image_tag @profile.avatar.url(:medium) %><p>
-    <%= form_for([@profile, @profile.posts.build]) do |f| %>
-  <p>
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </p>
+    <p><%= image_tag @profile.avatar.url(:medium) %></p>
+    <% unless @profile == current_user.profile %>
+    <div class="row">
+      <div class="col-sm-6">
+        <!--<p><%= link_to " Message", new_conversation_path, class: "btn btn-primary btn-xs glyphicons icon-inbox"  %></p></br></br>-->
+      </div>
+      <div class="col-sm-6">
+        <% if !current_user.profile.friends_with(@profile) %>
+          <%= link_to " Connect", friendships_path(:friend_id => @profile), :method => :post, :class => 'btn btn-primary glyphicons btn-xs icon-globe' %>
+        <% else %>
+          <%= link_to " Remove", friendship_path(@friendship), :method => :delete, :class => 'btn btn-primary glyphicons btn-xs icon-globe' %>
 
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-<% @profile.posts.each do |post| %>
-  <p>
+        <% end %>
+    </div>
+    </div>
+    <% end %>
+    <h5> Connections:
+    <%= @followers %></h5></br>
+    <h4> Teams Played for </h4>
+    <div class="row">
+      <% @profile.teams.each_slice(2) do |slice| %>
+      <% slice.each do |team| %>
+      <div class="col-sm-6">
+        <div class="chg-size2">
+          <%= link_to team.website do %>
+          <p><%= image_tag team.teamlogo.url(:thumb) %></p>
+          <% end %>
+        </div>
 
-    <b><%= post.status %></b>
-  </p>
-<hr>
-<% end %></br>
+        <div class='chg-size-font'>
+          <%= link_to team.website do %>
+          <p><%=team.athleteteam%></br>
+          <% end %>
+          <%=team.startyear%>-<%=team.endyear%></p>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
   </div>
+
   <div class="col-sm-8">
-  <h3> <%=@profile.username %> | <%=@profile.team %></h3>
-  <p> <%=@profile.location %> | <%=@profile.country %></p>
-  <p><%=@profile.gender %> | <%=@profile.sport %> | <%=@profile.position %></p></br>
-  <h4> Player Description </h4>
-  <p><%=@profile.description%></p></br>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#home" role="tab" data-toggle="tab">Player Info</a></li>
+      <li><a href="#posts" role="tab" data-toggle="tab">Social Media</a></li>
+      <li><a href="#pictures" role="tab" data-toggle="tab">Pictures</a></li>
+      <li><a href="#friends" role="tab" data-toggle="tab">Contacts</a></li>
+    </ul>
 
-  <h4> Athletic Performance Metrics </h4></br>
-   <div class="row">
-  <div class="col-sm-3">
-  <p><b>Player</b></p>
-</div>
-  <div class="col-sm-5">
-  <p><b>Average <%=@profile.position %></b></p>
-</div>
-</div>
-  <div class="row">
-  <div class="col-sm-3">
-  <p>Weight: <%=@profile.weight%> lbs</p>
-</div>
-  <div class="col-sm-5">
-  <p><%=@profile.avgweight%> lbs</p>
-</div>
-</div>
- <div class="row">
-  <div class="col-sm-3">
-  <p>Height: <%=@profile.height%> lbs</p>
-</div>
-  <div class="col-sm-5">
-  <p><%=@profile.avgheight%> lbs</p>
-</div>
-</div>
- <div class="row">
-  <div class="col-sm-3">
-  <p>BMI: <%=@profile.bmi%></p>
-</div>
-  <div class="col-sm-5">
-  <p><%=@profile.avgbmi%></p>
-</div>
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+
+        <h3> <%=@profile.username %> | <%=@profile.curteam %></h3><p> <%=@profile.location %> | <%=@profile.country %></p>
+        <p><%=@profile.gender %> | <%=@profile.sport %> | <%=@profile.position %></p></br>
+
+        <h4> Player Description </h4>
+        <p><%=@profile.description%></p></br>
+
+        <h4> Athletic Performance Metrics </h4></br>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#bodcomp" role="tab" data-toggle="tab">Body Comp</a></li>
+          <li><a href="#perf" role="tab" data-toggle="tab">Performance Metrics</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="bodcomp">
+            <div class="row">
+              <div class="col-sm-6">
+                <p><b>Player</b></p>
+              </div>
+              <div class="col-sm-6">
+                <p><b>Average <%=@profile.position %></b></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Weight: <%=@profile.weight%> lbs</p>
+
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgweight%> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Height: <%=@profile.height%> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgheight%> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>BMI: <%=@profile.bmi%></p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgbmi%></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>BodyFat: <%=@profile.bodyfat%>%</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgbf%>%</p>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="perf">
+            <div class="row">
+              <div class="col-sm-6">
+                <p><b>Exercise</b></p>
+              </div>
+              <div class="col-sm-6">
+                <p><b>Avg <%=@profile.position %></b></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Bench Press: <%=@profile.bench %> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgbench %> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Squat: <%=@profile.squat %> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgsquat %> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Deadlift: <%=@profile.deadlift %> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgdl %> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Power Clean: <%=@profile.powerclean %> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgclean %> lbs</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <p>Clean & Press: <%=@profile.powerclean %> lbs</p>
+              </div>
+              <div class="col-sm-6">
+                <p><%=@profile.avgcleanpress %> lbs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="tab-pane" id="posts">
+        <%= render :partial => 'beasts' %>
+      </div>
+
+      <div class="tab-pane" id="pictures">
+        <div class="row">
+          <% @images.each_slice(3) do |slice| %>
+          <% slice.each do |image| %>
+          <% if image.loadpic.exists? %>
+          <div class="col-sm-4">
+            <div class="chg-size4">
+              <%= image_tag image.loadpic.url(:medium) %>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="friends">
+        <div class="row">
+          <% @profile.friends.each_slice(3) do |slice| %>
+          <% slice.each do |friend| %>
+          <div class="col-sm-4">
+            <div class="chg-size2">
+              <%=link_to(friend) do %>
+              <p><%= image_tag friend.avatar.url(:thumb)  %></p><% end %>
+            </div>
+            <div class='chg-size-font'>
+              <%=link_to(friend) do %>
+              <p><%=friend.username%><% end %></p>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+        </div>
+        <%= paginate @connects %>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<p>BodyFat: <%=@profile.bodyfat%>%</p></br>
-<%= render current_user.mailbox.inbox %>
-
-</div>
-</div>
+<script type="text/javascript">
+  var tab = <%= params[:tab] %>;
+  $('a[href="#' + tab + '"]').tab('show');
+</script>
 
 
 

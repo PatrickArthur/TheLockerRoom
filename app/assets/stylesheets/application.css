@@ -12,8 +12,30 @@
  *
  *= require_tree .
  *= require_self
+ *= require social-share-button
+
+
 
  */
+
+
+
+ body
+{
+background-image: linear-gradient(to top, white, #C0C0C0, #B0C4DE);
+}
+
+
+
+
+.dropdown-menu
+{
+background-image: linear-gradient(to top, white, #C0C0C0, #B0C4DE);
+}
+
+ .comments-hidden {
+  display: none;
+}
 
  .posts-hidden {
   display: none;
@@ -30,6 +52,14 @@
 
 
 }
+/*
+.top-post {
+
+  border-style: solid;
+    /*border-width: 1px;*/
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+}*/
 
 .brand {
     background-color: #000000;
@@ -56,7 +86,66 @@
     border-width: 5px;
 }
 
+.pa-test {
+    margin:50px 0px; padding:0px;
+    text-align:center;
+    }
 
+.chg-size {
+    width: 25px;
+    height: 25px;
+    }
 
+.chg-size2 {
+    width: 50px;
+    height: 50px;
+    }
 
+.chg-size3 {
+    width: 150px;
+    height: 150px;
+    }
+
+.chg-size4 {
+    width: 125px;
+    height: 125px;
+    }
+
+.chg-size6 {
+    width: 40px;
+    height: 40px;
+    }
+
+.chg-size7 {
+    width: 500px;
+    height: 500px;
+    }
+
+.chg-size-font p{
+    font-size:8px;
+}
+
+.chg-size-font2 p{
+    font-size:10px;
+}
+
+.signcol h5{
+    color: #FFFFFE;
+}
+
+.signcol h3{
+    color: #FFFFFE;
+}
+
+.signcol h2{
+    color: #FFFFFE;
+}
+
+.devise-page {
+    background: url('http://blog.karineardault.com/.a/6a00d8354c574769e2017c317beb9b970b-pi') no-repeat center center fixed #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 

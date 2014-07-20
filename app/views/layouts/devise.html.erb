@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The LockerRoom</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+<body class="devise-page">
+
+  <div class="navbar">
+    <div class="container">
+      <% if user_signed_in? %>
+          Signed in as <%= current_user.email %>
+          <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      <% else %>
+          <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
+          <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+      <% end %>
+
+
+      <a href="#" class="brand" > The LockerRoom </a>
+    </div>
+  </div>
+
+      <div class="container">
+        <p><%= notice %></p>
+        <p><%= alert %></p>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="chg-size7">
+
+          </div>
+          </div>
+          <div class="col-sm-6">
+
+            <%= yield %>
+
+          </div>
+          <div class="col-sm-3">
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>

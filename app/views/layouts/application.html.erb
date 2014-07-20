@@ -9,39 +9,180 @@
 </head>
 <body>
 
-  <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-    <% if user_signed_in? %>
-        Signed in as <%= current_user.email %>
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-    <% else %>
-        <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
-    <% end %>
-
-    <a href="#" class="brand" > The LockerRoom </a>
-          <ul class="nav">
-            <% if current_user && current_user.profile%>
-
-            <li><%= link_to 'Athletes', profiles_path %></li>
-            <li><%= link_to "my profile",  current_user.profile %>  </li>
-
-            <li><%= link_to "edit profile", edit_profile_path(current_user.profile) %> </li>
-      </ul>
-    <% end %>
-
-          </ul>
-        </div>
-      </div>
-    </div>
-
+  <div class="navbar">
     <div class="container">
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-      <div class="back-app">
-      <%= yield %>
+      <% if user_signed_in? %>
+          Signed in as <%= current_user.email %>
+          <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      <% else %>
+          <%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %>
+          <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+      <% end %>
+
+      <a href="#" class="brand" > The LockerRoom </a>
+
+      <% if current_user && current_user.profile%>
+        <ul class="nav">
+          <li><%= link_to ' Athletes', profiles_path,:class => 'glyphicons icon-home' %></li>
+          <li><%= link_to " Profile",  current_user.profile,:class => 'glyphicons icon-user' %>  </li>
+
+          <li><%= link_to " Edit Profile", edit_profile_path(current_user.profile),:class => 'glyphicons icon-edit'  %> </li>
+
+          <!--<li><%= link_to " Messages", conversations_path,:class => 'glyphicons icon-inbox' %> </li>-->
+        </ul>
+      <% end %>
     </div>
+  </div>
+
+  <div class="container">
+    <p><%= notice %></p>
+    <p><%= alert %></p>
+        <% if current_user && current_user.profile %>
+        <div class="row">
+      <p> Friend Activity </p>
+      <div class="col-sm-2">
+          <% current_user.profile.friends.each do |friend| %>
+            <% friend.posts.each do |post| %>
+
+          <% if post.loadpic.exists? %>
+                <div class="row">
+
+                  <div class="col-sm-1">
+                    <div class="chg-size">
+                      <p>
+                        <%=link_to(friend) do %><%= image_tag friend.avatar.url(:thumb)  %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class='chg-size-font'>
+                      <p><%= friend.username %> loaded photo</p><hr>
+                    </div>
+                  </div>
+
+                </div>
+              <% elsif post.status_html.present? %>
+                <div class="row">
+
+                  <div class="col-sm-1">
+                    <div class="chg-size">
+                      <p>
+                        <%=link_to(friend) do %>
+                          <%= image_tag friend.avatar.url(:thumb)  %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class='chg-size-font'>
+                      <p><%= friend.username %> loaded video</p><hr>
+                    </div>
+                  </div>
+
+                </div>
+              <% elsif auto_link(post.status).present? %>
+                <div class="row">
+
+                  <div class="col-sm-1">
+                    <div class="chg-size">
+                      <p>
+                        <%=link_to(friend) do %>
+                          <%= image_tag friend.avatar.url(:thumb)  %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class='chg-size-font'>
+                      <p><%= friend.username %> loaded link</p><hr>
+                    </div>
+                  </div>
+
+                </div>
+
+              <% end %>
+
+              <% post.comments.each do |comment| %>
+                <div class="row">
+
+                  <div class="col-sm-1">
+                    <div class="chg-size">
+                      <p>
+                        <%= link_to(comment.profile) do %>
+                          <%= image_tag comment.profile.avatar.url(:thumb) %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class='chg-size-font'>
+                      <p><%= comment.profile.username %> commented on
+                        <%= link_to(friend) do %> <%= friend.username %>'s status
+                        <% end %></p><hr>
+                    </div>
+                  </div>
+
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col-sm-8">
+        <%= yield %>
+      </div>
+
+      <div class="col-sm-2">
+
+        <% if current_user && current_user.profile %>
+          <div class="dropdown">
+            <a data-toggle="dropdown" href="#">View Connections</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <% current_user.profile.friends.each do |friend| %>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="chg-size6">
+                      <p>
+                        <%=link_to(friend) do %>
+                          <%= image_tag friend.avatar.url(:thumb)  %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-9">
+                    <div class='chg-size-font'>
+                      <p>
+                        <%=link_to(friend) do %>
+                          <%= friend.username %></br>
+                        <% end %>
+
+                        <%= friend.sport %> | <%= friend.position %></br>
+
+                        <% friend.teams.each_with_index do |team, i| %>
+                          <% if i == 0 %>
+                            <%= link_to team.website do %>
+                              Club:<%= team.athleteteam %><hr>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </div>
-  </body>
+  </div>
+
+</body>
 </html>

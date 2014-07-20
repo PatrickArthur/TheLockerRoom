@@ -4,94 +4,103 @@
 <div id="accordion">
 
   <div class='out-form'>
-  <h4> Athlete Information </h4>
-</div>
+    <h4> Athlete Information </h4>
+  </div>
+
   <div>
-  <p><%= f.input :first_name, label: "First Name:" %></p>
-  <p><%= f.input :last_name, label: "Last Name:" %></p></br>
-  <p><%= f.input :sport, collection: [ "Football", "Baseball", "Basketball", "Rugby Union", "Rugby Leagure", "MMA", "Boxing", "Wrestling", "Soccer", "Track&Field","Lacrosse", "Field Hockey", "Ice Hockey", "Golf", "Australian Rules Football"],:prompt => "Select a Sport",label: "Sport:" %></p>
-  <p><%= f.input :team, label: "Team:" %></p>
-  <p><%= f.input :position, label: "Position:" %></p></br>
-  <div class="editprof-btns">
-    <hr />
-    <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
-    <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
-  </div>
+    <p><%= f.input :first_name, label: "First Name:" %></p>
+    <p><%= f.input :last_name, label: "Last Name:" %></p></br>
+    <p><%= f.input :sport, collection: [ "Football", "Baseball", "Basketball", "Rugby Union", "Rugby League", "MMA", "Boxing", "Wrestling", "Soccer", "Track&Field","Lacrosse", "Field Hockey", "Ice Hockey", "Golf", "Australian Rules Football"],:prompt => "Select a Sport",label: "Sport:" %></p>
+    <p><%= f.input :curteam, label: "Current Team:" %></p>
+    <p><%= f.input :position, label: "Position:" %></p>
 
+    <H4>Add Teams Played for<H4>
+
+      <%= f.simple_fields_for :teams do |team| %>
+      <%= render 'team_fields', :f => team %>
+      <% end %></br>
+
+      <div class ="links">
+        <%= link_to_add_association 'add team', f, :teams ,:class => "btn btn-small btn-primary" %>
+      </div>
+
+      <div class="editprof-btns">
+        <hr />
+        <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
+        <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
+      </div>
+
+    </div>
+
+
+    <div class='out-form'>
+      <h4> Contact Information </h4>
+    </div>
+
+    <div>
+      <p><%= f.input :address, label: "Address:" %></p>
+      <p><%= f.input :city, label: "City:" %></p>
+      <p><%= f.input :state, label: "State:" %></p></br>
+      <p><%= f.label :country%> <%= f.country_select :country, :prompt => "Select a Country", :Country => ''%></p>
+      <p><%= f.input :zip, label: "Zip Code:" %></p>
+      <p><%= f.input :phone, label: "Phone Number:" %></p>
+      <p><%= f.input :email, label: "Email Adress:" %></p></br>
+
+      <div class="editprof-btns">
+        <hr />
+        <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
+        <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
+      </div>
+
+    </div>
+
+    <div class='out-form'>
+      <h4> Body Composition </h4>
+    </div>
+
+    <div>
+      <p><%= f.input :gender, collection: [ "Male", "Female"],:prompt => "Select Gender",label: "Gender:" %></p>
+      <p><%= f.input :age, label: "Age:" %></p>
+      <p><%= f.input :weight, label: "Weight (lbs):" %></p>
+      <p><%= f.input :height, label: "Height (inches):" %></p>
+      <p><%= f.input :waist, label: "Waist:" %></p>
+      <p><%= f.input :neck, label: "Neck:" %></p>
+      <p><%= f.input :hip, label: "Hip (Only Female):" %></p>
+
+      <div class="editprof-btns">
+        <hr />
+        <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
+        <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
+      </div>
+
+    </div>
+
+    <div class='out-form'>
+      <h4> Strength Measurements (Enter 1 Rep Max) </h4>
+    </div>
+
+    <div>
+      <p><%= f.input :bench, label: "Bench:" %></p>
+      <p><%= f.input :squat, label: "Squat:" %></p>
+      <p><%= f.input :deadlift, label: "Deadlift:" %></p>
+      <p><%= f.input :powerclean, label: "Power Clean:" %></p>
+      <p><%= f.input :cleanpress, label: "Clean and Press:" %></p></br>
+
+      <div class="editprof-btns">
+        <hr />
+        <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
+        <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button></div>
 </div>
-
-
 <div class='out-form'>
-<h4> Contact Information </h4>
-</div>
-<div>
-  <p><%= f.input :address, label: "Address:" %></p>
-  <p><%= f.input :city, label: "City:" %></p>
-  <p><%= f.input :state, label: "State:" %></p></br>
-  <p><%= f.label :country%> <%= f.country_select :country, :prompt => "Select a Country", :Country => ''%></p>
-  <p><%= f.input :zip, label: "Zip Code:" %></p>
-  <p><%= f.input :phone, label: "Phone Number:" %></p>
-  <p><%= f.input :email, label: "Email Adress:" %></p></br>
-
-  <div class="editprof-btns">
-    <hr />
-    <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
-    <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
-  </div>
-
-</div>
-
-
-<div class='out-form'>
-<h4> Body Composition </h4>
-</div>
-<div>
-
-  <p><%= f.input :gender, collection: [ "Male", "Female"],:prompt => "Select Gender",label: "Gender:" %></p>
-  <p><%= f.input :age, label: "Age:" %></p></br>
-  <p><%= f.input :weight, label: "Weight (lbs):" %></p>
-  <p><%= f.input :height, label: "Height (inches):" %></p>
-  <p><%= f.input :waist, label: "Waist:" %></p>
-  <p><%= f.input :neck, label: "Neck:" %></p>
-  <p><%= f.input :hip, label: "Hip (Only Female):" %></p>
-
-  <div class="editprof-btns">
-    <hr />
-    <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
-    <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
-  </div>
-
-  </div>
-
-  <div class='out-form'>
-   <h4> Strength Measurements (Enter 1 Rep Max) </h4>
- </div>
-   <div>
-  <p><%= f.input :bench, label: "Bench:" %></p>
-  <p><%= f.input :squat, label: "Squat:" %></p>
-  <p><%= f.input :deadlift, label: "Deadlift:" %></p>
-  <p><%= f.input :powerclean, label: "Power Clean:" %></p>
-  <p><%= f.input :cleanpress, label: "Clean and Press:" %></p></br>
-
-  <div class="editprof-btns">
-    <hr />
-    <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>
-    <button class="btn " ng-click=""><span class="fa fa-arrow-circle-right"><p>next section</p></span></button>
-  </div>
-</div>
-<div class='out-form'>
-<h4> Athlete Biography </h4>
+  <h4> Athlete Biography </h4>
 </div>
 <div>
 </br>
-  <%= f.input :description, label: false, :as => :text, :input_html => { :cols => 10, :rows => 4, :style => 'width: 75%'} %></p>
-  <h4>Upload Photo:</h4>
-  <p class="instructions">(Max size 100x100)</p>
+<p><%= f.input :description, label: false, :as => :text, :input_html => { :cols => 10, :rows => 4, :style => 'width: 75%'} %></p>
+<h4>Upload Photo:</h4>
+<p class="instructions">(Max size 100x100)</p>
   <p><%= f.file_field :avatar %></p>
   <%= image_tag @profile.avatar.url(:thumb) unless @profile.avatar.url(:thumb).match('missing.png') %>
-
-
-
   <div class="editprof-btns">
     <hr />
     <button type="submit" class="btn" ng-click=""><span class="fa fa-refresh"><p>submit</p></span></button>

@@ -1,0 +1,65 @@
+<% if @profile == current_user.profile %>
+<%= form_for([@profile, @profile.posts.build]) do |f| %>
+<div class="row">
+  <div class="col-sm-6">
+    <p></br></br><%= f.text_area :status, :rows => 1, :class => "span3",placeholder: "Are Your Ready!!"%></p>
+  </div>
+  <div class="col-sm-6">
+    <p></br></br><%= f.button "Submit", class: "btn btn-primary btn-xs" %></p>
+    <p><%= f.file_field :loadpic %></p>
+  </div>
+<% end %>
+</div>
+<% end %><hr>
+
+<% @posts.each do |post| %>
+    <h4><%= @profile.username %></h4>
+    <div class="chg-size-font2">
+    <p><%= @profile.sport %> | <%= @profile.position %></p>
+  </div>
+
+<div class="row">
+  <div class="col-sm-2">
+    <div class="chg-size">
+      <%= image_tag @profile.avatar.url(:small) %>
+    </div>
+  </div>
+
+
+
+  <div class="col-sm-10">
+    <% if post.loadpic.exists? %>
+    <div class="chg-size3">
+    <%= image_tag post.loadpic.url(:medium) %>
+  </div>
+    <p><%= auto_link(post.status) %></p>
+    <p><%= social_share_button_tag(post.status) %></p>
+    <p><%= post.upvote.to_i.size %></p>
+    <% else %>
+    <% if post.status_html.present? %>
+    <p><%= post.status_html %></p>
+    <p><%= social_share_button_tag(post.status) %></p>
+    <% else %>
+    <p><%= auto_link(post.status) %></p>
+    <p><%= social_share_button_tag(post.status) %></p>
+    <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="chg-size-font">
+<% if post.created_at %>
+<p><%= time_ago_in_words(post.created_at) %> ago </p>
+<% end %>
+</div>
+
+<%= link_to "", {:controller =>"posts", :action => "upvote", :id => post.id}, :class => 'btn btn-default btn-icon glyphicons icon-thumbs-up btn-xs', method: :put %>
+<%= link_to "", {:controller =>"posts", :action => "downvote", :id => post.id}, :class => 'btn btn-default btn-icon glyphicons icon-thumbs-down btn-xs', method: :put %>
+
+<%= render :partial => 'comments', locals: { post: post, comments: post.comments } %>
+
+<hr>
+<% end %>
+
+<%= paginate @posts %>

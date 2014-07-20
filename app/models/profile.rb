@@ -1,46 +1,31 @@
-
-
 class Profile < ActiveRecord::Base
   belongs_to :user
-  has_many :posts
-  has_attached_file :avatar, styles: { small: "100x100#", medium: "200x200#", thumb: "75x75#"}, :default_url => "/images/:style/missing.png"
+  has_many :posts, dependent: :destroy
+  has_many :images, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, :through => :friendships
+  has_many :teams
+  acts_as_voter
+  accepts_nested_attributes_for :teams, :reject_if => :all_blank, :allow_destroy => true
+  has_attached_file :avatar, styles: { small: "64x64#", medium: "200x200#", thumb: "75x75#", test: "25x25#"}, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  validates_presence_of :first_name
+  validates_presence_of :last_name
+  validates_presence_of :sport
+  validates_presence_of :position
+  validates_presence_of :gender
+  validates_presence_of :age
+  validates_presence_of :weight
+  validates_presence_of :height
+  validates_presence_of :neck
+  validates_presence_of :bench
+  validates_presence_of :squat
+  validates_presence_of :deadlift
+  validates_presence_of :powerclean
+  validates_presence_of :cleanpress
 
 
-
-  def bodyfat
-    if gender == "Male"
-      ((86.01*Math.log10((waist) - (neck))) - (70.041*Math.log10(height)) + 36.76).to_i
-
-    else
-      if gender == "Female"
-        (163.205*math.log10((waist) - (hip) + (neck)) - 97.684*math.log10(height) - 78.387).to_i
-      end
-    end
-  end
-
-  def wilks
-    sum=bench+squat+deadlift+powerclean+cleanpress
-    if gender == "Male"
-      a=-216.0475144
-      b=16.2606339
-      c=-0.002388645
-      d=-0.00113732
-      e=7.01863E-06
-      f=-1.291E-08
-    else
-      if gender == "Female"
-        a=594.31747775582
-        b=-27.23842536447
-        c=0.82112226871
-        d=-0.00930733913
-        e=0.00004731582
-        f=-0.00000009054
-        end
-      end
-
-      sum/(a + (b*weight) + ((c*weight) ** 2) + ((d*weight) ** 3) + ((e*weight ** 4) + ((f*weight) ** 5)))
-  end
 
   def username
     first_name+" "+last_name
@@ -64,7 +49,46 @@ class Profile < ActiveRecord::Base
     Profile.where(sport:self.sport,position:self.position).average(:bmi).to_i
   end
 
+  def avgbf
+    Profile.where(sport:self.sport,position:self.position).average(:bodyfat).to_i
+  end
 
+  def avgbench
+    Profile.where(sport:self.sport,position:self.position).average(:bench).to_i
+  end
+
+  def avgsquat
+    Profile.where(sport:self.sport,position:self.position).average(:squat).to_i
+  end
+
+  def avgdl
+    Profile.where(sport:self.sport,position:self.position).average(:deadlift).to_i
+  end
+
+  def avgclean
+    Profile.where(sport:self.sport,position:self.position).average(:powerclean).to_i
+  end
+
+  def avgcleanpress
+    Profile.where(sport:self.sport,position:self.position).average(:cleanpress).to_i
+  end
+
+
+
+  def friends_with(friend)
+    friends.include?(friend)
+  end
+
+  def friendship(profile)
+    friendship = Friendship.where(profile: profile, friend: self).first
+    inverse_friendship = Friendship.where(profile: self, friend: profile).first
+
+    if friendship
+      friendship
+    else
+      inverse_friendship
+    end
+  end
 end
 
 

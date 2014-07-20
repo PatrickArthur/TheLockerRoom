@@ -256,4 +256,6 @@ Devise.setup do |config|
   config.authentication_keys = [ :email ]
   config.case_insensitive_keys = [ :email ]
   config.strip_whitespace_keys = [ :email ]
+
+  config.omniauth :twitter, ENV["RlF0QxcGCUya6OwWAE7AasfeT"], ENV["SKvKTSznbZvCJmPOKUSo4N69C0jOQGK7zvDHkNRo3DvB2JCAXL"]
 end

@@ -1,41 +1,91 @@
-<h2>Top Athletes</h2>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#posts" role="tab" data-toggle="tab">Top Posts</a></li>
+</ul>
 
-<%= simple_form_for(:search, html: { url: profiles_path, method: 'get' }) do |f| %>
-  <h4> Select Sport Played </h4></br>
-  <div class="row">
-  <div class="span2">
-  <p><%= f.input :sport,
-    collection: @sports,
-    prompt: "Select a Sport",
-    label: "Sport:",
-    selected: (params[:search][:sport] if params[:search]) %></p>
-    <p><%= f.input :first_name,
-    selected: (params[:search][:username] if params[:search]) %></p>
-  <p><%= f.submit %></p>
-</div>
-</div>
-  <hr>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+    <%= simple_form_for(:search, html: { url: profiles_path, method: 'get' }) do |f| %>
+    <h4> Select Sport Played </h4></br>
 
-<% end %>
+    <div class="container">
+      <div class="row" >
+        <div class="col-sm-3">
+          <p><%= f.input :sport,collection: @sports,prompt: "Select a Sport",label: "Sport:",selected: (params[:search][:sport] if params[:search]) %>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p><%= f.input :position,label: "Position:",selected: (params[:search][:position] if params[:position]) %></p>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-3">
+          <p><%= f.input :age,collection: @ages,prompt: "Select Age Range",label: "Age:",selected: (params[:search][:age] if params[:age]) %>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p><%= f.input :weight,collection: @weights,prompt: "Select Weight Range",label: "Weight:",selected: (params[:search][:weight] if params[:weight]) %>
+          </p>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-3">
+          <p><%= f.input :bmi,collection: @bmis,prompt: "Select BMI Range",label: "BMI:",selected: (params[:search][:bmi] if params[:bmi]) %>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p><%= f.input :bodyfat,collection: @bfs,prompt: "Select BodyFat Range",label: "BodyFat:",selected: (params[:search][:bodyfat] if params[:bodyfat]) %>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-3">
+            <p><%= f.submit nil, :class => 'btn btn-primary glyphicons icon-search' %></p>
+          </div>
+          <div class="col-sm-3">
+            <p><%= link_to ' New Search', profiles_path, :class => 'btn btn-primary glyphicons icon-search'   %></p>
+          </div>
+        </div>
+        <hr>
+        <% end %>
 
+      </div>
 
+    <% @profiles.sample(5).each_slice(3) do |slice| %>
+    <div class="row">
+      <% slice.each do |profile| %>
+      <% unless profile == current_user.profile %>
+      <% if !current_user.profile.friends_with(profile) %>
+      <div class="span2">
+        <div class="land">
+          <p><%=link_to(profile) do %><%= image_tag profile.avatar.url(:thumb ) %></p>
+          <% end %>
+          <p><%= profile.username %> </p>
+          <p><%= profile.sport %> | <%= profile.position %></p>
+          <%= link_to " Connect", friendships_path(:friend_id => profile), :method => :post, :class => 'icon-globe' %>
+        </div></br>
+      </div>
+      <% end %>
+      <% end %>
+      <% end %>
+      </div>
+      <% end %>
 
-  <% @profiles.sample(6).each_slice(3) do |slice| %>
-  <div class="row">
-  <% slice.each do |profile| %>
-  <div class="span2">
-    <div class="land">
-    <p><%=link_to(profile) do %><%= image_tag profile.avatar.url(:small ) %></p>
-    <% end %>
-    <p><%= profile.username %> </p>
-    <p><%= profile.sport %> | <%= profile.position %></p>
-  </div>
-  </br>
-  </div>
-
-    <% end %>
     </div>
-<% end %>
+
+    <div class="tab-pane" id="posts"><%= render :partial => 'test' %>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
 
 
 

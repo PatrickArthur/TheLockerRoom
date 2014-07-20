@@ -1,0 +1,108 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+<div class="container">
+
+ <div class="row">
+  <div class="col-sm-4">
+  <p><%= image_tag @profile.avatar.url(:medium) %><p>
+
+    <% unless @profile == current_user.profile %>
+    <p><%= link_to "Message", new_conversation_path, class: "btn btn-primary"  %></p>
+    <% end %>
+
+  <% if @profile == current_user.profile %>
+   <%= form_for([@profile, @profile.posts.build]) do |f| %>
+    <p>
+      <%= f.label :status %><br>
+      <%= f.text_field :status %>
+      <%= f.file_field :avatar %>
+    </p>
+
+    <p>
+      <%= f.submit %>
+    </p>
+    <% end %>
+    <% end %>
+
+    <% @profile.posts.each do |post| %>
+    <div class="chg-size">
+    <%= image_tag @profile.avatar.url(:small) %>
+  </div>
+    <p><%= auto_link(post.status) %></p>
+    <% if post.created_at %></br>
+    <p><%= time_ago_in_words(post.created_at) %> ago </p>
+    <% end %>
+  <hr>
+  <% end %>
+
+
+
+
+
+
+  </div>
+  <div class = "Landing">
+  <div class="col-sm-8">
+  <h3> <%=@profile.username %> | <%=@profile.team %></h3>
+  <p> <%=@profile.location %> | <%=@profile.country %></p>
+  <p><%=@profile.gender %> | <%=@profile.sport %> | <%=@profile.position %></p></br>
+  <h4> Player Description </h4>
+  <p><%=@profile.description%></p></br>
+
+  <h4> Athletic Performance Metrics </h4></br>
+   <div class="row">
+  <div class="col-sm-3">
+  <p><b>Player</b></p>
+</div>
+  <div class="col-sm-5">
+  <p><b>Average <%=@profile.position %></b></p>
+</div>
+</div>
+  <div class="row">
+  <div class="col-sm-3">
+  <p>Weight: <%=@profile.weight%> lbs</p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgweight%> lbs</p>
+</div>
+</div>
+ <div class="row">
+  <div class="col-sm-3">
+  <p>Height: <%=@profile.height%> lbs</p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgheight%> lbs</p>
+</div>
+</div>
+ <div class="row">
+  <div class="col-sm-3">
+  <p>BMI: <%=@profile.bmi%></p>
+</div>
+  <div class="col-sm-5">
+  <p><%=@profile.avgbmi%></p>
+</div>
+</div>
+
+<p>BodyFat: <%=@profile.bodyfat%>%</p></br>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

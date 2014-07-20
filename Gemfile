@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use sqlite3 as the database for Active Record
@@ -22,18 +23,45 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 gem 'simple_form'
+
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'carmen-rails', '~> 1.0.0'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'devise'
-gem 'pry-rails'
 gem "chartkick"
 gem "active_median"
-gem 'public_activity'
 gem 'mailboxer'
 gem "haml-rails"
+gem 'acts_as_votable', '~> 0.10.0'
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
+gem 'omniauth-twitter'
+gem 'social-share-button'
+gem 'rails_autolink'
+gem "cocoon"
+gem 'meta-tags', :require => 'meta_tags'
+gem "paperclip-ffmpeg"
+gem "auto_html"
+
+
+group :development, :test do
+  gem 'dotenv-rails'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'valid_attribute'
+end
+
+group :test do
+  gem 'coveralls', require: false
+end
+
+
 
 
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -53,4 +81,3 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

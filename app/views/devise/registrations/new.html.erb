@@ -1,20 +1,44 @@
-<h2>Sign up</h2></br>
-
-<h4> Welcome to The LockerRoom, find and connect with Athletes and Teams.</h4></br>
-
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :password, required: true %>
-    <%= f.input :password_confirmation, required: true %>
+<div class="form-inputs">
+  <div class="row">
+    <div class="col-sm-2">
+    </div>
+
+    <div class="col-sm-8">
+      <div class="signcol">
+      <h3>Search!!!</h3>
+      <h3>Connect!!!</h3>
+      <h2>Compete!!!</h>
+      </div>
+      <div class="signcol">
+      <h5><%= f.label :email %></h5>
+      </div>
+      <p><%= f.input :email, required: false, autofocus: true, label: false, input_html: { class: 'span3' }  %></p>
+
+      <div class="signcol">
+      <h5><%= f.label :password %></h5>
+      </div>
+      <p><%= f.input :password ,required: false, label: false , input_html: { class: 'span3' }%></p>
+
+      <div class="signcol">
+      <h5><%= f.label :password_confirmation %></h5>
+      </div>
+      <p><%= f.input :password_confirmation ,required: false, label: false , input_html: { class: 'span3' }%></p>
+
+    <div class="row">
+      <div class="col-sm-6">
+      <%= f.submit "Sign up" %>
+    </div>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+  <div class="col-sm-2">
+    </div>
+
   </div>
+
+
 <% end %>
-
-<%= render "devise/shared/links" %>
-
+</div>

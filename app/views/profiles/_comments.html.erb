@@ -1,0 +1,50 @@
+<%=button_tag "", class: 'toggle-comments icon-white icon-comment btn-xs ' %>
+<div class="comments comments-hidden">
+  <%= form_for([post, Comment.new]) do |f| %>
+  <div class="row">
+    <div class="col-sm-6">
+   <p></br></br><%= f.text_area :comment, :rows => 1, :class => "span3", placeholder: "Are Your Ready!!"%></p>
+   </div>
+   <div class="col-sm-6">
+    <p></br></br><%= f.button "Submit", class: "btn btn-primary btn-xs" %></p>
+  </div>
+  <% end %><hr>
+</div>
+
+
+
+  <% comments.each do |comment| %>
+  <% if comment.profile.present? %>
+  <p><%=link_to(@profile) do %><%= comment.profile.username %></p>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-1">
+      <div class="chg-size">
+        <%= image_tag comment.profile.avatar.url(:small) %>
+      </div>
+    </div>
+    <div class="chg-size-font">
+      <% end %>
+      <div class="col-sm-4">
+        <% if comment.comment_html.present? %>
+        <p><%= comment.comment_html %></p>
+        <% else %>
+        <p><%= auto_link(comment.comment) %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="chg-size-font">
+    <% if comment.profile %>
+      <p><%= comment.profile.sport %> | <%= comment.profile.position %></br>
+      <% if comment.created_at %>
+        <%= time_ago_in_words(comment.created_at) %> ago </p>
+      <% end %>
+    <% end %>
+  </div>
+  <hr>
+  <% end %>
+</div>
