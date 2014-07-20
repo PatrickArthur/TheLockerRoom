@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.string :profile_id
+      t.integer :profile_id
       t.string :upload
       t.string :status
 

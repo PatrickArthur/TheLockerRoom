@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'simple_form'
 
 gem "therubyracer"
+gem 'pg'
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'carmen-rails', '~> 1.0.0'
