@@ -1,15 +1,14 @@
-<% @profiles.each do |profile| %>
-
-<% profile.posts.each do |post| %>
-    <h4><%= profile.username %></h4>
+<% current_user.profile.friends.each do |friend| %>
+    <% friend.posts.each do |post| %>
+    <h4><%= friend.username %></h4>
     <div class="chg-size-font2">
-    <p><%= profile.sport %> | <%= profile.position %></p>
+    <p><%= friend.sport %> | <%= friend.position %></p>
   </div>
 
 <div class="row">
   <div class="col-sm-2">
     <div class="chg-size">
-      <%= image_tag profile.avatar.url(:small) %>
+      <%= image_tag friend.avatar.url(:small) %>
     </div>
   </div>
 

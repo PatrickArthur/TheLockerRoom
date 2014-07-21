@@ -53,7 +53,7 @@
 
       </div>
 
-    <% @profiles.sample(5).each_slice(3) do |slice| %>
+    <% @profiles.sample(25).each_slice(3) do |slice| %>
     <div class="row">
       <% slice.each do |profile| %>
       <% unless profile == current_user.profile %>

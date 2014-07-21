@@ -188,7 +188,7 @@
         <div class="row">
           <% @profile.friends.each_slice(3) do |slice| %>
           <% slice.each do |friend| %>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <div class="chg-size2">
               <%=link_to(friend) do %>
               <p><%= image_tag friend.avatar.url(:thumb)  %></p><% end %>
