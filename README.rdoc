@@ -8,5 +8,5 @@ different social media platforms. Create friendship system where friends can con
 of their friends posts so they can comment, etc. Create search system that allows users to select athletes who are in the criteria
 that want. ----Complete
 
-- Phase 2 - workout and bugs and implement messaging system between users who are connected, add notification system similar to 
+- Phase 2 - workout and bugs and implement messaging system between users who are connected, add notification system similar to
 Facebook and Linkedin that alerts users when a friend comments, likes, etc.
