@@ -1,28 +1,12 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+TheLockerRoom.Club - Recruiting Social Media tool for Amateur Athletes
 
-Things you may want to cover:
+- Phase 1 - Implement ability to register and log-in new users, allow users to create profiles and add in user information 
+that is used to compute key statistics. Create Social Media page where users can post statuses, videos etc and share between 
+different social media platforms. Create friendship system where friends can connect and destroy friendships and can view a feed
+of their friends posts so they can comment, etc. Create search system that allows users to select athletes who are in the criteria
+that want. ----Complete
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+- Phase 2 - workout and bugs and implement messaging system between users who are connected, add notification system similar to 
+Facebook and Linkedin that alerts users when a friend comments, likes, etc.
