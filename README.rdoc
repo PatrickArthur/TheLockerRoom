@@ -10,3 +10,9 @@ that want. ----Complete
 
 - Phase 2 - workout and bugs and implement messaging system between users who are connected, add notification system similar to
 Facebook and Linkedin that alerts users when a friend comments, likes, etc.
+
+- Phase 3 - build admin dashboard section, but tool that will allow admins to study body composition and strength of users
+as well as study trends in likes.
+
+- Phase 4 - Add in team section where teams can make profiles and show list of all athletes on thelockerroom.club, allow friendship
+between users and teams.
