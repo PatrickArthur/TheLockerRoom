@@ -16,3 +16,6 @@ as well as study trends in likes.
 
 - Phase 4 - Add in team section where teams can make profiles and show list of all athletes on thelockerroom.club, allow friendship
 between users and teams.
+
+- Phase 6 - add in rating system of athletes, and create stat that takes the number of ratings, comparison of body and strengh 
+metrics so this can be used to create three tiers of athletes used for searchin
